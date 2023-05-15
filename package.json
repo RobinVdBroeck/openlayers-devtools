@@ -2,6 +2,7 @@
   "name": "@robinvdbroeck/openlayers-devtools",
   "version": "0.1.0",
   "description": "Devtools to use with OpenLayers",
+  "repository": "https://github.com/RobinVdBroeck/openlayers-devtools",
   "license": "MIT",
   "scripts": {
     "build": "tsup",
