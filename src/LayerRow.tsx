@@ -1,9 +1,8 @@
 import { createSignal, onCleanup, For } from "solid-js";
 import Map from "ol/Map";
 import type BaseLayer from "ol/layer/Base";
-import { EditableProperty } from "./EditableProperty";
 import type { Property } from "./property";
-import Layer from "ol/layer/Layer";
+import { PropertyTable } from "./PropertyTable";
 
 export interface LayerProps {
   layer: BaseLayer;
@@ -97,38 +96,5 @@ export const LayerRow = (props: LayerProps) => {
         }}
       />
     </li>
-  );
-};
-
-interface PropertyTableProps {
-  properties: Property[];
-  changeProperty: (newValue: Property) => void;
-}
-
-const PropertyTable = (props: PropertyTableProps) => {
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>Property</th>
-          <th>Value</th>
-        </tr>
-      </thead>
-      <tbody>
-        <For each={props.properties}>
-          {(property) => (
-            <tr>
-              <td>{property.name}</td>
-              <td>
-                <EditableProperty
-                  property={property}
-                  onChange={props.changeProperty}
-                />
-              </td>
-            </tr>
-          )}
-        </For>
-      </tbody>
-    </table>
   );
 };
