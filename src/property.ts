@@ -1,4 +1,4 @@
-import type Map from "ol/Map";
+import Map from "ol/Map";
 
 export interface BaseProperty {
   name: string;
@@ -54,3 +54,60 @@ export type Property =
   | NullProperty
   | UndefinedProperty
   | UnknownProperty;
+
+export const toProperty = (key: string, value: unknown): Property => {
+  if (typeof value === "undefined") {
+    return {
+      name: key,
+      type: "undefined",
+      value: undefined,
+    };
+  }
+  if (value === null) {
+    return {
+      name: key,
+      type: "null",
+      value: null,
+    };
+  }
+  if (typeof value === "number") {
+    return {
+      name: key,
+      type: "number",
+      value: value,
+    };
+  }
+  if (typeof value === "string") {
+    return {
+      name: key,
+      type: "string",
+      value: value,
+    };
+  }
+  if (value instanceof Map) {
+    return {
+      name: key,
+      type: "Map",
+      value: value,
+    };
+  }
+  if (typeof value === "object") {
+    return {
+      name: key,
+      type: "object",
+      value,
+    };
+  }
+  if (typeof value === "boolean") {
+    return {
+      name: key,
+      type: "boolean",
+      value,
+    };
+  }
+  return {
+    name: key,
+    type: "unknown",
+    value,
+  };
+};

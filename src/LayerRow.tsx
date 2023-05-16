@@ -1,69 +1,11 @@
 import { createSignal, onCleanup, For } from "solid-js";
-import Map from "ol/Map";
 import type BaseLayer from "ol/layer/Base";
-import type { Property } from "./property";
 import { PropertyTable } from "./PropertyTable";
+import { toProperty } from "./property";
 
 export interface LayerProps {
   layer: BaseLayer;
 }
-
-const toProperty = (key: string, value: unknown): Property => {
-  if (typeof value === "undefined") {
-    return {
-      name: key,
-      type: "undefined",
-      value: undefined,
-    };
-  }
-  if (value === null) {
-    return {
-      name: key,
-      type: "null",
-      value: null,
-    };
-  }
-  if (typeof value === "number") {
-    return {
-      name: key,
-      type: "number",
-      value: value,
-    };
-  }
-  if (typeof value === "string") {
-    return {
-      name: key,
-      type: "string",
-      value: value,
-    };
-  }
-  if (value instanceof Map) {
-    return {
-      name: key,
-      type: "Map",
-      value: value,
-    };
-  }
-  if (typeof value === "object") {
-    return {
-      name: key,
-      type: "object",
-      value,
-    };
-  }
-  if (typeof value === "boolean") {
-    return {
-      name: key,
-      type: "boolean",
-      value,
-    };
-  }
-  return {
-    name: key,
-    type: "unknown",
-    value,
-  };
-};
 
 export const LayerRow = (props: LayerProps) => {
   const [properties, setProperties] = createSignal(props.layer.getProperties());
