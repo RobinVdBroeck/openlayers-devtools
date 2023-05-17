@@ -4,6 +4,8 @@ import type { Projection } from "ol/proj";
 import type { Coordinate } from "ol/coordinate";
 import { type Property, toProperty } from "./property";
 import { PropertyTable } from "./PropertyTable";
+import { trackEvents } from "./events/primitives";
+import { EventTable } from "./events/EventTable";
 
 interface ViewData {
   center: Coordinate | undefined;
@@ -18,6 +20,7 @@ interface ViewProps {
  * Display information about an ol view
  */
 export const ViewInfo = (props: ViewProps) => {
+  const events = trackEvents(props.view, ["change"]);
   const data = from<ViewData>((set) => {
     const sync = () =>
       set({
@@ -59,6 +62,8 @@ export const ViewInfo = (props: ViewProps) => {
             });
           }}
         />
+        <h3>Events</h3>
+        <EventTable events={events} />
       </div>
     </>
   );
